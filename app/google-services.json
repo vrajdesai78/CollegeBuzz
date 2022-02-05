@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1009127968318",
+    "project_id": "collegebuzz-92a36",
+    "storage_bucket": "collegebuzz-92a36.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1009127968318:android:b02db0e0b84eac8c3d8b6f",
+        "android_client_info": {
+          "package_name": "com.example.collegebuzz"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1009127968318-misngljhflsqrf10bl55d2skefa82j61.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyATRdF94pGhzmCTaFty2-8UdH0g2hrIrH8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1009127968318-misngljhflsqrf10bl55d2skefa82j61.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
