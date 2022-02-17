@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -13,6 +14,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.OnSuccessListener
 import com.google.android.gms.tasks.Task
@@ -26,10 +28,10 @@ class RegisterActivity : AppCompatActivity() {
     private var password: EditText? = null
     private var register: Button? = null
     private var name: EditText? = null
-    private val signInButton: TextView? = null
-    private val mGoogleSignInClient: GoogleSignInClient? = null
+    private var signInButton: TextView? = null
+    private var mGoogleSignInClient: GoogleSignInClient? = null
     private val TAG = "RegisterActivity"
-    private val mAuth: FirebaseAuth? = null
+    private var mAuth: FirebaseAuth? = null
     private var auth: FirebaseAuth? = null
     private val RC_SIGN_IN = 1
     private var login_btn: Button? = null
@@ -44,6 +46,7 @@ class RegisterActivity : AppCompatActivity() {
         name = findViewById(R.id.Name)
         auth = FirebaseAuth.getInstance()
         login_btn = findViewById(R.id.login_button)
+        signInButton = findViewById(R.id.btn_google_signin)
 
         login_btn!!.setOnClickListener {
             startActivity(Intent(this, LoginActivity::class.java))
@@ -52,6 +55,17 @@ class RegisterActivity : AppCompatActivity() {
         register!!.setOnClickListener {
             firebaseRegistration()
         }
+
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(getString(R.string.default_web_client_id))
+            .requestEmail()
+            .build()
+
+        mAuth = FirebaseAuth.getInstance()
+
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
+
+        signInButton!!.setOnClickListener{signIn()}
     }
 
     private fun firebaseRegistration() {
@@ -132,7 +146,7 @@ class RegisterActivity : AppCompatActivity() {
         ) { task ->
             if (task.isSuccessful) {
                 Toast.makeText(this@RegisterActivity, "Successful", Toast.LENGTH_SHORT).show()
-                val user = mAuth.currentUser
+                val user = mAuth!!.currentUser
                 val documentReference =
                     FirebaseFirestore.getInstance().collection("Users").document(
                         FirebaseAuth.getInstance()
